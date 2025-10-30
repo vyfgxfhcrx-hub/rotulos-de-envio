@@ -1,13 +1,3 @@
-import subprocess
-import sys
-
-# 📦 Verificar e instalar reportlab si falta
-try:
-    import reportlab
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "reportlab"])
-    import reportlab
-
 import streamlit as st
 import pandas as pd
 from reportlab.lib.pagesizes import A4
@@ -83,4 +73,5 @@ if st.button("🎯 Generar etiquetas") and nombre_cliente and facturas and canti
         generar_etiquetas(nombre_cliente, facturas, cantidad_bultos, tmp.name)
         st.success("✅ Etiquetas generadas correctamente.")
         st.download_button("📥 Descargar PDF", data=open(tmp.name, "rb").read(), file_name="etiquetas_envio.pdf", mime="application/pdf")
+
         os.unlink(tmp.name)
