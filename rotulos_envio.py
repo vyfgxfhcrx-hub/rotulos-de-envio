@@ -31,10 +31,10 @@ def generar_etiquetas(nombre_cliente, facturas, cantidad_bultos, ruta_pdf):
         y = alto - margen_y - fila * espacio_vertical
 
         c.setFont("Helvetica-Bold", 20)
-        c.drawString(x, y, f"Cliente: {nombre_cliente}")
-        c.setFont("Helvetica", 20)
-        c.drawString(x, y - 20, f"Factura(s): {', '.join(facturas)}")
-        c.drawString(x, y - 40, f"Bulto {i + 1} de {cantidad_bultos}")
+        c.drawString(x, y, f"CLIENTE: {nombre_cliente.upper()}")
+        c.setFont("Helvetica", 16)
+        c.drawString(x, y - 25, f"Factura(s): {', '.join(facturas)}")
+        c.drawString(x, y - 45, f"Bulto {i + 1} de {cantidad_bultos}")
 
         if (i + 1) % etiquetas_por_hoja == 0:
             c.showPage()
@@ -73,5 +73,4 @@ if st.button("🎯 Generar etiquetas") and nombre_cliente and facturas and canti
         generar_etiquetas(nombre_cliente, facturas, cantidad_bultos, tmp.name)
         st.success("✅ Etiquetas generadas correctamente.")
         st.download_button("📥 Descargar PDF", data=open(tmp.name, "rb").read(), file_name="etiquetas_envio.pdf", mime="application/pdf")
-
         os.unlink(tmp.name)
